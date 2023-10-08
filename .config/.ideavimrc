@@ -48,10 +48,9 @@ nnoremap <silent> <CR><CR> o<Esc>
 nnoremap <CR>h :nohlsearch<CR><ESC>
 
 
-/*
-optionを追加
-*/
-"######################## 
+#######OPTIONを追加######
+######################## 
+
 set virtualedit=onemore " 行末1つ先へ
 set clipboard+=unnamed  " クリップボードへコピー
 
