@@ -1,0 +1,139 @@
+inoremap <silent> jj <ESC>
+" 英数
+inoremap <silent> っj <ESC> 
+" かな
+let mapleader = " " 
+" <Leader> key setting
+
+###############################################
+" 折り返し時に表示行単位での移動できるようにする
+" move command
+nnoremap j gj
+vnoremap j gj
+nnoremap k gk
+vnoremap k gk
+
+noremap <S-j> }
+nnoremap <S-k> {
+noremap L $
+noremap H ^
+noremap ; : 
+noremap gl :actionlist<CR> 
+
+noremap gf :action SearchEverywhere<CR> 
+noremap gd :action GotoDeclaration<CR> 
+noremap gh :action QuickJavaDoc<CR> 
+
+vnoremap <silent> cc :action CommentByLineComment<CR><Esc> 
+nnoremap <silent> cc :action CommentByLineComment<CR><Esc> 
+
+
+noremap fc :action ReformatCode<CR> 
+
+
+# https://ikenox.info/blog/ideavim-introduction/ 参考にした
+# actionlist 一覧を表示
+# actionlist xxx でxxxのaction_keyを表示する
+
+#################################################
+#################################################
+##############      2023/4/11     ###############
+#################################################
+#################################################
+
+nnoremap <Esc><Esc> :nohlsearch<CR><ESC>
+# #####Enter<CR>
+
+nnoremap <silent> <CR><CR> o<Esc>
+nnoremap <CR>h :nohlsearch<CR><ESC>
+
+
+/*
+optionを追加
+*/
+"######################## 
+set virtualedit=onemore " 行末1つ先へ
+set clipboard+=unnamed  " クリップボードへコピー
+
+"===== 検索設定 =========
+set ignorecase "大文字、小文字の区別をしない
+set smartcase "大文字が含まれている場合は区別する
+set wrapscan "検索時に最後まで行ったら最初に戻る
+set hlsearch "検索した文字を強調
+set incsearch "インクリメンタルサーチを有効にす
+set nobackup "バックアップファイルを作らない
+set noswapfile "スワップファイルを作らない
+
+"=====カーソル移動=======
+noremap <C-j> <Down>
+noremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
+
+"=====削除===============
+
+
+#################################################
+#################################################
+##############      2023/4/12     ###############
+#################################################
+#################################################
+inoremap vv :action CodeCompletion<CR>
+nnoremap vv :action CodeCompletion<CR>
+nnoremap g; :<C-u>action JumpToLastChange<CR>
+noremap <leader-r> :action IdeaVim.ReloadVimRc.reload<CR>
+inoremap <C-c> <Esc>
+nnoremap <C-c> <Esc>
+
+
+
+" status line highlight
+set showmode 
+"履歴件数
+set history=10000 
+
+" 編集箇所のカーソルを記憶
+if has("autocmd")
+  augroup redhat
+    " In text files, always limit the width of text to 78 characters
+    autocmd BufRead *.txt set tw=78
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+  augroup END
+endif
+
+#################################################
+#################################################
+##############      2023/4/20     ###############
+#################################################
+#################################################
+
+nnoremap <C-l> :<C-u>action NextTab<CR>
+nnoremap <C-h> :<C-u>action PreviousTab<CR>
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
+
+
+#################################################
+#################################################
+##############      2023/4/21     ###############
+#################################################
+#################################################
+" レジスターの変更が大事
+vnoremap <silent> tt "_dd
+nnoremap <silent> tt "_dd
+nnoremap <silent> <leader><leader> :action IdeaVim.ReloadVimRc.reload<CR>
+nnoremap <silent> T D
+#################################################
+#################################################
+##############      2023/5/3     ###############
+#################################################
+#################################################
